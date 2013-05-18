@@ -81,25 +81,28 @@ public partial class MainWindow : Gtk.Window
 		this.x += 200;
 		this.etiqueta("lblanio_" + juego.id, "<span size=\"12000\" foreground=\"#000000\">" + juego.anio + "</span>");
 		this.x += 200;
+		
 		this.opciones (juego);  //muestra un boton de mostrar id por cada registro
 			
 		
 	}
 	
 	
-	//creo que me faltó mostrar el id...
-	protected virtual void OnjuegoClicked (object sender, System.EventArgs e)
+protected virtual void OnfileClicked (object sender, System.EventArgs e)//evento para programar el boton de manera dinamica
 	{
-	
+		Gtk.Button btnFile = (Gtk.Button) sender;
+		string id = btnFile.Name.Replace("btnMostrar", "");
+
 		MessageDialog md = new MessageDialog (null, 
 		  	DialogFlags.Modal,
 			MessageType.Info, 
-		  	ButtonsType.None, "El id es:"); //poner el id que mostrar[a
+		  	ButtonsType.None, id);//
 			md.Show();
+		
 	}
 	
 	
-	private void opciones(Juego juego){
+	private void opciones(Juego juego){ 
 		this.boton("btnMostrarID"+juego.id, "MostrarID", "gtk-file");
 		
 	}
@@ -132,6 +135,8 @@ public partial class MainWindow : Gtk.Window
 		global::Gtk.Fixed.FixedChild w9 = ((global::Gtk.Fixed.FixedChild)(this.fixed2[boton]));
 		w9.X = this.x;
 		w9.Y = this.y - 10;
+		if(imagen == "gtk-file")//linea que aniade el evento a los botones dinamicos
+			boton.Clicked += new global::System.EventHandler (this.OnfileClicked); 
 		
 	}
 	
@@ -139,3 +144,4 @@ public partial class MainWindow : Gtk.Window
 
 
 }
+
