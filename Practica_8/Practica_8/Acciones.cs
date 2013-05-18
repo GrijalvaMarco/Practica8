@@ -35,7 +35,7 @@ namespace Practica_8
 		
 		private string querySelect(){
 			return "SELECT * " +
-	           	"FROM Videojuego";
+	           	"FROM Videojuego, fabricante WHERE fabricante_id = fabricante.id";
 		}
 	}
 }
